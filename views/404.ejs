@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - MyBlog</title>
+    <link href="/public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .error-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #6c757d;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .error-illustration {
+            max-width: 200px;
+            margin: 0 auto 2rem;
+        }
+    </style>
+</head>
+
+<body>
+ 
+
+    <!-- محتوى صفحة 404 -->
+    <div class="container">
+        <div class="row justify-content-center error-container">
+            <div class="col-md-8 col-lg-6">
+                <div class="error-content">
+                    <!-- الرسم التوضيحي -->
+                    <div class="error-illustration">
+                        <svg width="200" height="150" viewBox="0 0 200 150" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="30" y="40" width="140" height="80" rx="8" fill="#f8f9fa" stroke="#dee2e6"
+                                stroke-width="2" />
+                            <circle cx="80" cy="80" r="15" fill="#6c757d" opacity="0.5" />
+                            <circle cx="120" cy="80" r="15" fill="#6c757d" opacity="0.5" />
+                            <path d="M60 110 L140 110" stroke="#6c757d" stroke-width="2" stroke-linecap="round"
+                                opacity="0.5" />
+                            <text x="100" y="30" text-anchor="middle" fill="#6c757d" font-family="Arial" font-size="14"
+                                font-weight="bold">404</text>
+                        </svg>
+                    </div>
+                    <div class="error-code">404</div>
+                    <h1 class="h2 mb-3 text-dark">Page Not Found</h1>
+                    <p class="lead text-muted mb-4">
+                        Sorry, the page you are looking for doesn't exist or has been moved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <script src="/public/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
