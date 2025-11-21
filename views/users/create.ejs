@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyBlog - Add User</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -13,7 +13,7 @@
         <div class="container">
             <a class="navbar-brand" href="index.html">MyBlog</a>
             <div class="navbar-nav">
-                <a class="nav-link" href="all-users.html">All Users</a>
+                <a class="nav-link" href="/admin/allusers">All Users</a>
                 <a class="nav-link" href="admin-posts.html">Posts</a>
             </div>
         </div>
@@ -34,11 +34,11 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2>Add New User</h2>
-                    <a href="all-users.html" class="btn btn-outline-secondary">View All Users</a>
+                    <a href="/admin/allusers" class="btn btn-outline-secondary">View All Users</a>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <form action="/addusers" method="POST">
+                        <form action="/storeUsers" method="POST">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="firstName" class="form-label">First Name</label>

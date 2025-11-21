@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBlog - Edit User</title>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">MyBlog</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/admin/allusers">All Users</a>
+                <a class="nav-link" href="/addUsers">Add User</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <h2 class="mb-4">Edit User</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/admin/updateUser/<%= user._id %>?_method=PUT" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName"class="form-label">First Name</label>
+                                    <input type="text" name="firstName"  class="form-control" id="firstName" value="<%= user.firstName %>" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" name="lastName" class="form-control" id="lastName" value="<%= user.lastName %>" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control" id="email" value="<%= user.email %>"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="type" class="form-label">Type</label>
+                                <select name="type" class="form-select" id="type" required>
+                                    <option <%= user.type === "user" ? "selected" : null %> value="user">User</option>
+                                    <option <%= user.type === "admin" ? "selected" : null %> value="admin">Admin</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" name="status" id="status" required>
+                                    <option <%= user.status === "active" ? "selected" : null %> value="active" >Active</option>
+                                    <option <%= user.status === "inActive" ? "selected" : null %> value="inActive">Inactive</option>
+                                </select>
+                            </div>
+
+                            <h5 class="mt-4 mb-3">Reset Password</h5>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">New Password</label>
+                                <input type="password" name="password" class="form-control" id="password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="userConfirmPassword" class="form-label">Confirm New Password</label>
+                                <input type="password" name="confirmPassword" class="form-control" id="userConfirmPassword">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Update User</button>
+                            <a href="/admin/allusers" class="btn btn-outline-secondary">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

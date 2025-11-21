@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+// const session = require('express-session');
+// const flash = require('connect-flash');
 const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
@@ -9,7 +11,14 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
-
+// إعداد الجلسات
+// app.use(session({
+//     secret: 'your-secret-key-here', // غير هذا المفتاح
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: false } // اجعلها true إذا كنت تستخدم HTTPS
+// }));
+// app.use(flash());
 // Middleware - يجب أن يكون بعد تعريف app
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
