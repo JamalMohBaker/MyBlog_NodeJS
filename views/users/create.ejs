@@ -18,17 +18,7 @@
             </div>
         </div>
     </nav>
-    <% if (success) { %>
-        <div class="alert alert-success">
-            <%= success %>
-        </div>
-        <% } %>
     
-            <% if (error) { %>
-                <div class="alert alert-danger">
-                    <%= error %>
-                </div>
-                <% } %>
     <div class="container mt-4">
         <div class="row">
             <div class="col-12">
@@ -38,32 +28,32 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <form action="/storeUsers" method="POST">
+                        <form id="userForm">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" name="firstName" class="form-control" id="firstName" required>
+                                    <input type="text" name="firstName" class="form-control" id="firstName" autocomplete="firstName" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" name="lastName" class="form-control" id="lastName" required>
+                                    <input type="text" name="lastName" class="form-control" id="lastName" autocomplete="lastName" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="email" class="form-label">E-mail</label>
-                                    <input type="email" name="email" class="form-control" id="email" required>
+                                    <input type="email" name="email" class="form-control" id="email" autocomplete="email" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" id="password" required>
+                                    <input type="password" name="password" class="form-control" id="password" autocomplete="new-password" required>
                                 </div>
                             </div>
                             <div class="row">
                                 
                                 <div class="col-md-6 mb-3">
                                     <label for="gender" class="form-label">Gender</label>
-                                    <select name="gender" class="form-select" id="gender" required>
+                                    <select name="gender" class="form-select" id="gender" autocomplete="gender" required>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                         
@@ -71,13 +61,14 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="type" class="form-label">Type</label>
-                                    <select name="type" class="form-select" id="type" required>
+                                    <select name="type" class="form-select" id="type" autocomplete="type" required>
                                         <option value="user">User</option>
                                         <option value="admin">Admin</option>
                                         
                                     </select>
                                 </div>
                             </div>
+                            <div id="message"></div>
                             <button type="submit" class="btn btn-primary ">Add User</button>
                         </form>
                     </div>
@@ -85,6 +76,7 @@
             </div>
         </div>
     </div>
+    <script src="/assets/js/ajax-handler-user.js"></script>
 </body>
 
 </html>

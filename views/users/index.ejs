@@ -37,6 +37,7 @@
                                         <th>Email</th>
                                         <th>Role</th>
                                         <th>Joined</th>
+                                        <th>Last Update</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -48,14 +49,18 @@
                                             <td><%= user.email %></td>
                                             <td><span class="badge bg-primary"><%= user.type %></span></td>
                                             <td><%= moment(user.createdAt).fromNow() %></td>
+                                            <td><%= moment(user.updatedAt).fromNow() %></td>
                                             <td>
                                                 <a href="/admin/editUser/<%= user._id %>"
                                                     class="btn btn-sm btn-outline-primary">Edit</a>
-                                                    <form action="/admin/deleteUser/<%= user._id %>%>?_method=DELETE" method="POST" class="d-inline">
+                                                    <!-- <form action="/admin/deleteUser/<%= user._id %>%>?_method=DELETE" method="POST" class="d-inline">
                                                         <button type="submit" class="btn btn-sm btn-outline-danger">
                                                             Delete
                                                         </button>
-                                                    </form>
+                                                    </form> -->
+                                                    <button type="button" class="btn btn-sm btn-outline-danger delete-user-btn" data-user-id="<%= user._id %>">
+                                                        Delete
+                                                    </button>
                                             </td>
                                         </tr>
                                     <% }) %>
@@ -70,6 +75,8 @@
             </div>
         </div>
     </div>
-</body>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/sweetalert2.js"></script>
+    <script src="/assets/js/ajax-handler-user.js"></script></body>
 
 </html>
