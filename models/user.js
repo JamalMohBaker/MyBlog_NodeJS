@@ -64,4 +64,23 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, 12);
     next();
 });
+
+// مقارنة كلمات المرور
+userSchema.methods.comparePassword = async function (candidatePassword,passwordDB) {
+    try {
+    
+        if (!candidatePassword || !this.password) {
+            console.log('❌ Missing data for comparison');
+            return false;
+        }
+        passwordLogin = await bcrypt.hash(candidatePassword, 12);
+        const result = await bcrypt.compare(candidatePassword, passwordDB);
+        console.log('   Comparison result:', result);
+        return result;
+
+    } catch (error) {
+        console.error('💥 Comparison error:', error.message);
+        return false;
+    }
+};
 module.exports = mongoose.model('User', userSchema);

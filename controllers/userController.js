@@ -78,7 +78,8 @@ exports.updateUser = async (req,res) => {
     try{
         const user = await  User.findByIdAndUpdate(req.params.id,req.body,{
             new:true,runValidators:true
-        });   
+        }); 
+        
         if (req.xhr || req.headers['x-requested-with'] === 'XMLHttpRequest') {
             return res.json({
                 success: true,
@@ -93,7 +94,7 @@ exports.updateUser = async (req,res) => {
         if (req.xhr || req.headers['x-requested-with'] === 'XMLHttpRequest') {
             return res.status(400).json({
                 success: false,
-                message: "❌ " + err.message
+                message: "❌ or  Password and confirmation do not match" + err.message
             });
         }
         // req.flash('error', 'Failed to update user: ' + err.message);

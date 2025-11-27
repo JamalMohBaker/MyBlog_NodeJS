@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBlog - Login</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MyBlog</a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <h2 class="text-center mb-4">Login</h2>
+
+                        <!-- رسائل الخطأ -->
+                        <% if (error) { %>
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <% if (error==='invalid_credentials' ) { %>
+                                    ❌ Invalid email or password
+                                    <% } else if (error==='auth_required' ) { %>
+                                    ❌ You must log in first
+                                        <% } else if (error==='server_error' ) { %>
+                                        ❌ Server error occurred
+                                            <% } else { %>
+                                            ❌ An unexpected error occurred
+                                                <% } %>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                            <% } %>
+                        
+                                <!-- رسائل النجاح -->
+                                <% if (success) { %>
+                                    <div class="alert alert-success alert-dismissible fade show">
+                                        <% if (success==='account_created' ) { %>
+                                        ✅ Account created successfully! You can log in now
+                                            <% } %>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    </div>
+                                    <% } %>
+                                    
+                        <form action="/login" method="POST">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" id="password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <a href="/register">Don't have an account? Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

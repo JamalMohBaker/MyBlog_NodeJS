@@ -8,6 +8,16 @@
 <body>
     <h1>
         Welcome to the Blog Home Page
+        <% if (user) { %>
+            <div class="user-info">
+                <p>مرحباً, <%= user.firstName %>
+                </p>
+                <p>البريد: <%= user.email %>
+                </p>
+            </div>
+            <% } else { %>
+                <p>يرجى تسجيل الدخول</p>
+                <% } %>
     </h1>
     
 </body>

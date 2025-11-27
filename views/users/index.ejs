@@ -13,8 +13,14 @@
         <div class="container">
             <a class="navbar-brand" href="index.html">MyBlog</a>
             <div class="navbar-nav">
-                <a class="nav-link" href="/addUsers">Add User</a>
+                <a class="nav-link" href="/admin/addUsers">Add User</a>
                 <a class="nav-link" href="admin-posts.html">Posts</a>
+                <form action="/logout" method="POST" style="display: inline;">
+                    <button type="submit" class="nav-link btn btn-link" style="border: none; background: none;">
+                    logout
+                    </button>
+                </form>
+                <!-- <a class="nav-link" href="/logout">logout</a> -->
             </div>
         </div>
     </nav>
@@ -24,7 +30,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2>All Users</h2>
-                    <a href="/addUsers" class="btn btn-primary">Add New User</a>
+                    <a href="/admin/addUsers" class="btn btn-primary">Add New User</a>
                 </div>
                 <div class="card">
                     <div class="card-body">
