@@ -21,7 +21,7 @@
                 <div class="card shadow">
                     <div class="card-body p-4">
                         <h2 class="text-center mb-4">Register</h2>
-                        <form action="/register" method="POST">
+                        <form id="registerForm" >
                             <div class="mb-3">
                                 <label for="firstName" class="form-label">First Name</label>
                                 <input type="text" name="firstName" class="form-control" id="firstName" required>
@@ -47,9 +47,10 @@
                                 <input type="password" name="password" class="form-control" id="password">
                             </div>
                             <div class="mb-3">
-                                <label for="userConfirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" name="confirmPassword" class="form-control" id="userConfirmPassword">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
                             </div>
+                            <div id="message"></div>
                             <button type="submit" class="btn btn-success w-100">Register</button>
                         </form>
                         <div class="text-center mt-3">
@@ -60,6 +61,7 @@
             </div>
         </div>
     </div>
+    <script src="/assets/js/ajax-handler-user.js"></script>
 </body>
 
 </html>

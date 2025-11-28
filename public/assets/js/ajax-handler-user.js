@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('editUserForm')) {
         setupEditUserForm();
     }
+    if (document.getElementById('registerForm')) {
+        registerUserForm();
+    }
 
     // Delete Buttons
     setupDeleteButtons();
@@ -186,6 +189,54 @@ async function handleDeleteUser(userId, userName, button) {
     }
 }
 
+function registerUserForm() {
+    document.getElementById('registerForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            email: document.getElementById('email').value,
+            gender: document.getElementById('gender').value,
+            password: document.getElementById('password').value,
+            confirmPassword: document.getElementById('confirmPassword').value
+            
+        };
+        // change button text to indicate loading
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'registration...';
+        submitBtn.disabled = true;
+
+        try {
+            
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest' // Indicate it's an AJAX request
+                },
+                body: JSON.stringify(formData)
+            });
+            const result = await response.json();
+            const messageDiv = document.getElementById('message');
+            if (result.success) {
+                showMessage(result.message, 'success');
+                // window.location.href = '/login?success=account_created';
+                setTimeout(() => {
+                    window.location.href = '/login?success=account_created';
+                }, 2000);
+            } else {
+                showMessage(result.message, 'error');
+            }
+
+        } catch (error) {
+            showMessage('❌ Network error: ' + error.message, 'error');
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
 function showMessage(message, type) {
     const messageDiv = document.getElementById('message');
 
@@ -205,5 +256,5 @@ function showMessage(message, type) {
         if (alert) {
             alert.remove();
         }
-    }, 3000); // 3000 ميلي ثانية = 3 ثواني
+    }, 3000); 
 }

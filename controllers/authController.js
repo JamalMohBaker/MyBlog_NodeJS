@@ -9,25 +9,50 @@ exports.showRegister = (req, res) => {
 
 exports.register = async (req, res) => {
     try {
-        const { firstName, lastName, email, gender,password, confirmPassword } = req.body;
-
-        if (password !== confirmPassword) {
-            // تحتاج إضافة flash messages
-            return res.redirect('/register?error=password_mismatch');
+        if (!req.xhr && req.headers['x-requested-with'] !== 'XMLHttpRequest') {
+            return res.redirect('/register');
         }
+
+        const { firstName, lastName, email, gender,password, confirmPassword } = req.body;
+        if (!firstName || !lastName || !email || !gender || !password) {
+            return res.json({
+                success: false,
+                message: ' All fields are required '
+            });
+        }
+        if (password !== confirmPassword) {
+            return res.json({
+                success: false,
+                message: '  Passwords do not match '
+            });
+        }
+        // if (password !== confirmPassword) {
+        //     // تحتاج إضافة flash messages
+        //     return res.redirect('/register?error=password_mismatch');
+        // }
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.redirect('/register?error=email_exists');
+            return res.json({
+                success: false,
+                message: 'Email already in use '
+            });
+            
         }
 
         const user = new User({ firstName, lastName, gender, email, password });
         await user.save();
 
-        res.redirect('/login?success=account_created');
-
+        res.json({
+            success: true,
+            message: 'Account created successfully'
+        });
     } catch (error) {
-        res.redirect('/register?error=server_error');
+        res.json({
+            success: false,
+            message: '  Server error. Please try again later. '
+        });
+        // res.redirect('/register?error=server_error');
     }
 };
 
