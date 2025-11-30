@@ -71,7 +71,7 @@ exports.editUser = async (req,res) => {
         })
     }catch(err){
         console.log(err);
-        res.redirect('/admin/allusers');
+        res.redirect('/admin/users/allusers');
     }
 }
 exports.updateUser = async (req,res) => {

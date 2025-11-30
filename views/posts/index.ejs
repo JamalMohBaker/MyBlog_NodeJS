@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBlog - Manage Posts</title>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">MyBlog</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/admin/posts/addPost">Add Post</a>
+                <a class="nav-link" href="/admin/users/allusers">Users</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Manage Posts</h2>
+                    <a href="/admin/posts/addPost" class="btn btn-primary">Add New Post</a>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>created at</th>
+                                        <th>updated at</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% posts.forEach((post,index) => { %>
+                                        <tr>
+                                            <td><%= index+1 %></td>
+                                            <td><%= post.title %></td>
+                                            <td><%= post.author.firstName %> <%= post.author.lastName %></td>
+                                            <td><%= moment(post.createdAt).fromNow() %></td>
+                                            <td><%= moment(post.updatedAt).fromNow() %></td>
+                                            <td>
+                                                <a href="/admin/posts/editPost/<%= post._id %>" class="btn btn-sm btn-outline-primary">Edit</a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger delete-post-btn" data-post-id="<%= post._id %>">Delete</button>
+                                            
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                    
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/sweetalert2.js"></script>
+    <script src="/assets/js/ajax-post.js"></script>
+</body>
+
+</html>

@@ -79,9 +79,11 @@ const userContext = async (req, res, next) => {
             
             if(user){
                req.user = user; 
-                res.locals.user = user; 
+                res.locals.auth = user; 
+                res.locals.user = user;
             } else {
                 req.user = null;
+                res.locals.auth = null;
                 res.locals.user = null;
             }
 

@@ -98,7 +98,7 @@ exports.login = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
         if(user.type==='admin'){
-            return res.redirect('/admin/allusers');
+            return res.redirect('/admin/users/allusers');
         }else{
              return res.redirect('/?success=login_success');
         }

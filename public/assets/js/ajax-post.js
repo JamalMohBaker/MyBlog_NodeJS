@@ -1,30 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Add User Form
-    if (document.getElementById('userForm')) {
-        setupUserForm();
-    }
 
-    // Edit User Form
-    if (document.getElementById('editUserForm')) {
+    if (document.getElementById('addPost')) {
+        setupAddPostForm();
+    }
+    if (document.getElementById('editPost')) {
         setupEditUserForm();
     }
-    if (document.getElementById('registerForm')) {
-        registerUserForm();
-    }
 
-    // Delete Buttons
     setupDeleteButtons();
+
 });
-function setupUserForm() {
-    document.getElementById('userForm').addEventListener('submit', async function (e) {
+
+function setupAddPostForm() {
+    document.getElementById('addPost').addEventListener('submit', async function (e) {
         e.preventDefault();
         const formData = {
-            firstName: document.getElementById('firstName').value,
-            lastName: document.getElementById('lastName').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-            gender: document.getElementById('gender').value,
-            type: document.getElementById('type').value
+            author: document.getElementById('author').value,
+            title: document.getElementById('title').value,
+            postText: document.getElementById('postText').value
+            
         };
         // change button text to indicate loading
         const submitBtn = document.querySelector('button[type="submit"]');
@@ -33,7 +27,7 @@ function setupUserForm() {
         submitBtn.disabled = true;
 
         try {
-            const response = await fetch('/admin/users/storeUsers', {
+            const response = await fetch('/admin/posts/storePost', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +40,7 @@ function setupUserForm() {
             if (result.success) {
                 showMessage(result.message, 'success');
                 // نفضي الفورم إذا نجح
-                document.getElementById('userForm').reset();
+                document.getElementById('addPost').reset();
             } else {
                 showMessage(result.message, 'error');
             }
@@ -59,12 +53,13 @@ function setupUserForm() {
         }
     });
 }
-function setupEditUserForm() {
-    document.getElementById('editUserForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
 
-        const editForm = document.getElementById('editUserForm');
-        const userId = editForm.dataset.userId;
+function setupEditUserForm() {
+    document.getElementById('editPost').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        
+        const editForm = document.getElementById('editPost');
+        const postId = editForm.dataset.postId;
 
         const submitBtn = document.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
@@ -75,7 +70,7 @@ function setupEditUserForm() {
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
 
-            const response = await fetch(`/admin/users/updateUser/${userId}`, {
+            const response = await fetch(`/admin/posts/updatePost/${postId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,7 +80,7 @@ function setupEditUserForm() {
             });
             const result = await response.json();
             if (result.success) {
-                showMessage('✅ User updated successfully!', 'success');
+                showMessage('✅ Post updated successfully!', 'success');
                 // ممكن تضيف redirect بعد نجاح التعديل إذا بدك
                 // setTimeout(() => window.location.href = '/admin/allusers', 2000);
             } else {
@@ -102,22 +97,21 @@ function setupEditUserForm() {
     });
 }
 function setupDeleteButtons() {
-    const deleteButtons = document.querySelectorAll('.delete-user-btn');
+    const deleteButtons = document.querySelectorAll('.delete-post-btn');
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', function () {
-            const userId = this.dataset.userId;
-            const userName = this.dataset.userName || 'this user';
-            handleDeleteUser(userId, userName, this);
+            const postId = this.dataset.postId;
+            const title = this.dataset.title || 'this post';
+            handleDeletePost(postId, title, this);
         });
     });
 }
-
-async function handleDeleteUser(userId, userName, button) {
+async function handleDeletePost(postId, title, button) {
     // استخدام SweetAlert2 للتأكيد
     const result = await Swal.fire({
         title: 'Are you sure?',
-        text: `You are about to delete ${userName}. This action cannot be undone!`,
+        text: `You are about to delete ${title}. This action cannot be undone!`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
@@ -141,7 +135,7 @@ async function handleDeleteUser(userId, userName, button) {
     button.disabled = true;
 
     try {
-        const response = await fetch(`/admin/users/deleteUser/${userId}`, {
+        const response = await fetch(`/admin/posts/deletePost/${postId}`, {
             method: 'DELETE',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
@@ -154,7 +148,7 @@ async function handleDeleteUser(userId, userName, button) {
             // رسالة نجاح بـ SweetAlert2
             await Swal.fire({
                 title: 'Deleted!',
-                text: 'User has been deleted successfully.',
+                text: 'Post has been deleted successfully.',
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 timer: 2000,
@@ -180,62 +174,13 @@ async function handleDeleteUser(userId, userName, button) {
     } catch (error) {
         await Swal.fire({
             title: 'Network Error!',
-            text: 'Failed to delete user. Please try again.',
+            text: 'Failed to delete Post. Please try again.',
             icon: 'error',
             confirmButtonColor: '#d33'
         });
         button.textContent = originalText;
         button.disabled = false;
     }
-}
-
-function registerUserForm() {
-    document.getElementById('registerForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const formData = {
-            firstName: document.getElementById('firstName').value,
-            lastName: document.getElementById('lastName').value,
-            email: document.getElementById('email').value,
-            gender: document.getElementById('gender').value,
-            password: document.getElementById('password').value,
-            confirmPassword: document.getElementById('confirmPassword').value
-            
-        };
-        // change button text to indicate loading
-        const submitBtn = document.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'registration...';
-        submitBtn.disabled = true;
-
-        try {
-            
-            const response = await fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest' // Indicate it's an AJAX request
-                },
-                body: JSON.stringify(formData)
-            });
-            const result = await response.json();
-            const messageDiv = document.getElementById('message');
-            if (result.success) {
-                showMessage(result.message, 'success');
-                // window.location.href = '/login?success=account_created';
-                setTimeout(() => {
-                    window.location.href = '/login?success=account_created';
-                }, 2000);
-            } else {
-                showMessage(result.message, 'error');
-            }
-
-        } catch (error) {
-            showMessage('❌ Network error: ' + error.message, 'error');
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }
-    });
 }
 function showMessage(message, type) {
     const messageDiv = document.getElementById('message');
@@ -256,5 +201,5 @@ function showMessage(message, type) {
         if (alert) {
             alert.remove();
         }
-    }, 3000); 
+    }, 3000);
 }
